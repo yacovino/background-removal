@@ -15,18 +15,37 @@
 # ==========IMPORTS==========
 import cv2
 import numpy as np
-from PIL import Image
 import glob
 import os
 
 #== Parameters =======================================================================
-BLUR = 21
+BLUR = 11
 CANNY_THRESH_1 = 10
-CANNY_THRESH_2 = 200
-MASK_DILATE_ITER = 10
-MASK_ERODE_ITER = 10
+CANNY_THRESH_2 = 100
+MASK_DILATE_ITER = 180
+MASK_ERODE_ITER = 180
 MASK_COLOR = (0.0,0.0,1.0) # In BGR format
+# picture needs to be 368 pixels tall
 
+#==best results
+#BLUR = 11
+#CANNY_THRESH_1 = 10
+#CANNY_THRESH_2 = 100
+#MASK_DILATE_ITER = 180
+#MASK_ERODE_ITER = 180
+#MASK_COLOR = (0.0,0.0,1.0) # In BGR format
+
+#== Image Resizer ====================================================================
+for pic in glob.glob("*.png"):
+    file, ext = os.path.splitext(pic)
+    img = cv2.imread(pic)
+    width = 368
+    height = int(img.shape[0] * (width/int(img.shape[1])))
+    dim = (width, height)
+    resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
+    cv2.imwrite(file + '_resized.png', resized)
+
+#==Background Removal=================================================================
 
 #== Processing =======================================================================
 
