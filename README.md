@@ -1,2 +1,2 @@
 # background-removal
-Removing a plain background from stock photos.
+Resize and removing a plain background from stock photos.
